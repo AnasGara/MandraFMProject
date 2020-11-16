@@ -1,17 +1,27 @@
 package com.Anas.onlineradio;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.io.IOException;
+import java.nio.channels.Channel;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -20,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     boolean prepared=false;
     boolean started=false;
     String stream = "https://freeuk29.listen2myradio.com/live.mp3?typeportmount=s1_33203_stream_984183506";
+
+    NotificationManager mNotificationManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         mPlayButton.setEnabled(false);
         mPlayButton.setText("LOADING");
 
-        mMediaPlayer= new MediaPlayer();
+        mMediaPlayer = new MediaPlayer();
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
         new PLayerTask().execute(stream);
@@ -38,24 +51,46 @@ public class MainActivity extends AppCompatActivity {
         mPlayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(started){
+                if (started) {
 
-                    Log.d("Radio","Start?  ");
-                    started=false;
+                    Log.d("Radio", "Start?  ");
+                    started = false;
                     mMediaPlayer.pause();
                     mPlayButton.setText("PLAY");
 
-                }else{
-                    Log.d("Radio","pause?  ");
-                    started=true;
+                } else {
+                    Log.d("Radio", "pause?  ");
+                    started = true;
                     mMediaPlayer.start();
                     mPlayButton.setText("PAUSE");
 
                 }
+                CreateNotification.createNotification(MainActivity.this, R.drawable.ic_baseline_pause_24 );
+
             }
+
+
         });
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createChannel();
+        }
     }
+
+        private void createChannel() {
+
+            if (Build.VERSION.SDK_INT >=Build.VERSION_CODES.O){
+                NotificationChannel channel= new NotificationChannel(CreateNotification.CHANNEL_ID, "KKKK", NotificationManager.IMPORTANCE_HIGH);
+                mNotificationManager = getSystemService(NotificationManager.class);
+                if(mNotificationManager != null)
+                {
+                    mNotificationManager.createNotificationChannel(channel );
+
+                }
+            }
+
+        }
+
 
     class PLayerTask extends AsyncTask<String, Void, Boolean> {
 
@@ -109,5 +144,12 @@ public class MainActivity extends AppCompatActivity {
         if(prepared){
             mMediaPlayer.release();
         }
+
+
     }
+
+    //Notif work starts here
+
+
+
 }
