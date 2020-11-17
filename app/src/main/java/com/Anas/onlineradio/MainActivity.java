@@ -1,5 +1,5 @@
-package com.Anas.onlineradio;
-
+package com.Anas.onlineradio
+;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
     MediaPlayer mMediaPlayer;
     boolean prepared=false;
     boolean started=false;
-    String stream = "https://freeuk29.listen2myradio.com/live.mp3?typeportmount=s1_33203_stream_984183506";
-
+    String stream = "https://radio.mosaiquefm.net/mosalive";
+   // https://freeuk29.listen2myradio.com/live.mp3?typeportmount=s1_33203_stream_984183506
     NotificationManager mNotificationManager;
 
 

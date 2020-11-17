@@ -39,7 +39,6 @@ public class CreateNotification {
                 .setLargeIcon(icon)
                 .setOnlyAlertOnce(true)
                 .setShowWhen(false)
-                .setOngoing(true)
                 .build();
         notificationManagerCompat.notify(1,notification);
 
