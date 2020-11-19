@@ -6,6 +6,10 @@ import androidx.core.app.NotificationManagerCompat;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -16,6 +20,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.Anas.onlineradio.Services.OnClearFromRecentService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -23,7 +28,7 @@ import java.io.IOException;
 import java.nio.channels.Channel;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements Playable{
 
     Button mPlayButton ;
     MediaPlayer mMediaPlayer;
@@ -31,8 +36,9 @@ public class MainActivity extends AppCompatActivity {
     boolean started=false;
     String stream = "https://radio.mosaiquefm.net/mosalive";
    // https://freeuk29.listen2myradio.com/live.mp3?typeportmount=s1_33203_stream_984183506
+//https://freeuk29.listen2myradio.com/live.mp3?typeportmount=s1_33203_stream_984183506
     NotificationManager mNotificationManager;
-
+    boolean isPlaying=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +72,10 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 CreateNotification.createNotification(MainActivity.this, R.drawable.ic_baseline_pause_24 );
-
+            if(isPlaying){
+                onTrackPause();
+            }
+            else {onTrackPLay();}
             }
 
 
@@ -74,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             createChannel();
+            registerReceiver(mBroadcastReceiver, new IntentFilter("TRACKS_TRACKS"));
+            startService(new Intent(getBaseContext(), OnClearFromRecentService.class));
+
+
         }
     }
 
@@ -90,6 +103,41 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+
+        BroadcastReceiver mBroadcastReceiver= new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                String action = intent.getExtras().getString("actionname");
+                switch(action)
+                {
+                    case  CreateNotification.ACTION_PLAY:
+                        if (isPlaying)
+                        {onTrackPause();}
+                        else {
+                            onTrackPLay();
+                        }
+                    break;
+
+
+
+                }
+            }
+        };
+    @Override
+    public void onTrackPLay() {
+        CreateNotification.createNotification(MainActivity.this, R.drawable.ic_baseline_pause_24);
+        //play.setImageRessources(R.drawable.ic_pause..)
+        //title.setText(
+        isPlaying=true;
+    }
+
+    @Override
+    public void onTrackPause() {
+CreateNotification.createNotification(MainActivity.this, R.drawable.ic_baseline_play_arrow_24);
+        //play.setImageRessources(R.drawable.ic_pause..)
+        //title.setText(
+        isPlaying=false;
+    }
 
 
     class PLayerTask extends AsyncTask<String, Void, Boolean> {
@@ -144,7 +192,10 @@ public class MainActivity extends AppCompatActivity {
         if(prepared){
             mMediaPlayer.release();
         }
-
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
+            mNotificationManager.cancelAll();
+        }
+        unregisterReceiver(mBroadcastReceiver);
 
     }
 
