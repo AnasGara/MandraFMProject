@@ -23,7 +23,7 @@ public class CreateNotification {
 
 
     public static Notification notification;
-    public  static void createNotification(Context context,int playButton){
+    public  static void createNotification(Context context,int playIcon){
     if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O)
     {
         NotificationManagerCompat notificationManagerCompat=NotificationManagerCompat.from(context);
@@ -32,25 +32,26 @@ public class CreateNotification {
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_baseline_pause_24);
 
         Intent intentPlay = new Intent(context, NotificationActionService.class).setAction(ACTION_PLAY);
+
         PendingIntent pendingIntentPlay = PendingIntent.getBroadcast(context,0, intentPlay,PendingIntent.FLAG_UPDATE_CURRENT);
 
         //Create Notification
 
-        Log.d("Radio", "creating notif");
-
+        Log.d("Radio", "Creating notif");
 
         notification= new Notification.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_music_note)
+                .setSmallIcon(R.mipmap.ic_mandra)
                 .setContentTitle("MandraFM LIVE NOW")
                 .setContentText("MandraTeam")
                 .setLargeIcon(icon)
                 .setOnlyAlertOnce(true)
                 .setShowWhen(false)
-                .addAction(R.drawable.ic_baseline_play_arrow_24,"Play", pendingIntentPlay)
+//                .addAction(R.drawable.ic_baseline_play_arrow_24,"Play", pendingIntentPlay)
+//                .addAction(playButton.workPLease())
 //                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
-//                        .setShowActionsInCompactView(0,1,2).setMediaSession(MediaSessionCompat.getSessionToken()))
+//                .setShowActionsInCompactView(0,1,2).setMediaSession(MediaSessionCompat.getSessionToken()))
 
-               // .setOngoing(true)
+//               .setOngoing(true)
                 .build();
         notificationManagerCompat.notify(1,notification);
 

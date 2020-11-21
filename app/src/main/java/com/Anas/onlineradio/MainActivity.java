@@ -1,9 +1,5 @@
-package com.Anas.onlineradio
-;
+package com.Anas.onlineradio;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationManagerCompat;
-
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -12,21 +8,20 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.Anas.MandraFmApp.R;
 import com.Anas.onlineradio.Services.OnClearFromRecentService;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import java.io.IOException;
-import java.nio.channels.Channel;
-import java.util.List;
+
+import android.os.Bundle;
+import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity implements Playable{
 
@@ -34,11 +29,14 @@ public class MainActivity extends AppCompatActivity implements Playable{
     MediaPlayer mMediaPlayer;
     boolean prepared=false;
     boolean started=false;
-    String stream = "https://radio.mosaiquefm.net/mosalive";
+    String stream = "https://freeuk29.listen2myradio.com/live.mp3?typeportmount=s1_33203_stream_984183506";
    // https://freeuk29.listen2myradio.com/live.mp3?typeportmount=s1_33203_stream_984183506
-//https://freeuk29.listen2myradio.com/live.mp3?typeportmount=s1_33203_stream_984183506
+    //https://radio.mosaiquefm.net/mosalive
+
     NotificationManager mNotificationManager;
     boolean isPlaying=false;
+    ImageView logoSghir;
+    //I want to link my notification button to my play button
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +46,21 @@ public class MainActivity extends AppCompatActivity implements Playable{
         mPlayButton = (Button) findViewById(R.id.playButton);
         mPlayButton.setEnabled(false);
         mPlayButton.setText("LOADING");
-
+        logoSghir = (ImageView)findViewById(R.id.logoSghir);
         mMediaPlayer = new MediaPlayer();
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
+
+        logoSghir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.addCategory(Intent.CATEGORY_BROWSABLE);
+                intent.setData(Uri.parse("https://www.mandrafm.com/"));
+                startActivity(intent);
+            }
+        });
         new PLayerTask().execute(stream);
 
         mPlayButton.setOnClickListener(new View.OnClickListener() {
@@ -166,6 +175,7 @@ CreateNotification.createNotification(MainActivity.this, R.drawable.ic_baseline_
 
 
         }
+
     }
 
     @Override
