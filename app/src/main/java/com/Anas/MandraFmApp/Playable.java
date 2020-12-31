@@ -1,4 +1,4 @@
-package com.Anas.onlineradio;
+package com.Anas.MandraFmApp;
 
 public interface Playable {
     void onTrackPLay();

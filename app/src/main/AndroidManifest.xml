@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 
-    package="com.Anas.onlineradio" >
+    package="com.Anas.MandraFmApp" >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name="com.Anas.MandraFmApp.MainActivity"
             android:launchMode="singleTask" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,9 +24,9 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".Services.NotificationActionService" />
+        <receiver android:name="com.Anas.MandraFmApp.Services.NotificationActionService" />
 
-        <service android:name=".Services.OnClearFromRecentService" />
+        <service android:name="com.Anas.MandraFmApp.Services.OnClearFromRecentService" />
     </application>
 
 </manifest>

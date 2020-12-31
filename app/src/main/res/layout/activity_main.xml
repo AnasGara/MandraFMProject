@@ -38,16 +38,15 @@
 
     <ImageView
         android:id="@+id/logoSghir"
-        android:layout_width="60dp"
-        android:layout_height="68dp"
+        android:layout_width="99dp"
+        android:layout_height="95dp"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ss"
-        android:clickable="true"
-        />
+        app:srcCompat="@drawable/o" />
 
     <ImageView
         android:id="@+id/imageView2"

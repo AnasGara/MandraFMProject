@@ -1,21 +1,18 @@
-package com.Anas.onlineradio;
+package com.Anas.MandraFmApp;
 
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.session.MediaSession;
 import android.os.Build;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
 
 import androidx.core.app.NotificationManagerCompat;
-import androidx.media.app.NotificationCompat;
 
-import com.Anas.onlineradio.Services.NotificationActionService;
+import com.Anas.MandraFmApp.Services.NotificationActionService;
 
 public class CreateNotification {
     public static  final  String CHANNEL_ID="channel";

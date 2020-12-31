@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-    <background android:drawable="@color/ic_mandraaaaa_background"/>
-    <foreground android:drawable="@mipmap/kkkk"/>
+    <background android:drawable="@color/kkkkkkk_background"/>
+    <foreground android:drawable="@mipmap/kkkkkkk_foreground"/>
 </adaptive-icon>

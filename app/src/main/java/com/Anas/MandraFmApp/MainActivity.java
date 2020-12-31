@@ -1,4 +1,4 @@
-package com.Anas.onlineradio;
+package com.Anas.MandraFmApp;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -17,10 +17,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.Anas.MandraFmApp.R;
-import com.Anas.onlineradio.Services.OnClearFromRecentService;
+import com.Anas.MandraFmApp.Services.OnClearFromRecentService;
 import java.io.IOException;
 
-import android.os.Bundle;
 import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity implements Playable{
