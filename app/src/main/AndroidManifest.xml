@@ -25,7 +25,8 @@
         </activity>
 
         <receiver android:name="com.Anas.MandraFmApp.Services.NotificationActionService" />
-
+        <receiver android:name=".ActionReceiver" />
+        <receiver android:name=".ActionReceiverPause" />
         <service android:name="com.Anas.MandraFmApp.Services.OnClearFromRecentService" />
     </application>
 

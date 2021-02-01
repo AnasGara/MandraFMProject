@@ -28,23 +28,43 @@ public class CreateNotification {
 
         Bitmap icon = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_baseline_pause_24);
 
-        Intent intentPlay = new Intent(context, NotificationActionService.class).setAction(ACTION_PLAY);
+        Intent intentPlay = new Intent(context, ActionReceiver.class);
+        Intent intentPause = new Intent(context, ActionReceiverPause.class);
+        Intent homeIntent=new Intent(context, MainActivity.class);
 
-        PendingIntent pendingIntentPlay = PendingIntent.getBroadcast(context,0, intentPlay,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 3, homeIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntentPlay = PendingIntent.getBroadcast(context,1, intentPlay,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntentPause = PendingIntent.getBroadcast(context,2, intentPause,PendingIntent.FLAG_UPDATE_CURRENT);
 
-        //Create Notification
+// go home
 
+
+        /*
+  pIntentlogin = PendingIntent.getBroadcast(context,1,intentAction,PendingIntent.FLAG_UPDATE_CURRENT);
+    drivingNotifBldr = (NotificationCompat.Builder) new NotificationCompat.Builder(context)
+            .setSmallIcon(R.drawable.steeringwheel)
+            .setContentTitle("NoTextZone")
+            .setContentText("Driving mode it ON!")
+            //Using this action button I would like to call logTest
+            .addAction(R.drawable.smallmanwalking, "Turn OFF driving mode", pIntentlogin)
+            .setOngoing(true);
+*/
+        //SOF//Create Notification
         Log.d("Radio", "Creating notif");
 
         notification= new Notification.Builder(context, CHANNEL_ID)
+                .setContentIntent(resultPendingIntent)
+                .setAutoCancel(false)
                 .setSmallIcon(R.mipmap.ic_mandra)
                 .setContentTitle("MandraFM LIVE NOW")
                 .setContentText("MandraTeam")
                 .setLargeIcon(icon)
                 .setOnlyAlertOnce(true)
                 .setShowWhen(false)
-//                .addAction(R.drawable.ic_baseline_play_arrow_24,"Play", pendingIntentPlay)
-//                .addAction(playButton.workPLease())
+                .addAction(R.drawable.ic_baseline_play_arrow_24,"Exit", pendingIntentPlay)
+              //  .addAction(R.drawable.ic_baseline_play_arrow_24,"Pause", pendingIntentPause)
+
+////                .addAction(playButton.workPLease())
 //                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
 //                .setShowActionsInCompactView(0,1,2).setMediaSession(MediaSessionCompat.getSessionToken()))
 

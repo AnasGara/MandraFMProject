@@ -25,11 +25,11 @@ import android.widget.ImageView;
 public class MainActivity extends AppCompatActivity implements Playable{
 
     Button mPlayButton ;
-    MediaPlayer mMediaPlayer;
+    public static MediaPlayer mMediaPlayer;
     boolean prepared=false;
     boolean started=false;
-    String stream = "https://freeuk29.listen2myradio.com/live.mp3?typeportmount=s1_33203_stream_984183506";
-   // https://freeuk29.listen2myradio.com/live.mp3?typeportmount=s1_33203_stream_984183506
+    String stream = "https://12u.short.gy/aXw9VU";
+    //https://freeuk29.listen2myradio.com/live.mp3?typeportmount=s1_33203_stream_984183506
     //https://radio.mosaiquefm.net/mosalive
 
     NotificationManager mNotificationManager;
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements Playable{
 
         mPlayButton = (Button) findViewById(R.id.playButton);
         mPlayButton.setEnabled(false);
-        mPlayButton.setText("LOADING");
+        mPlayButton.setText("LOADING..");
         logoSghir = (ImageView)findViewById(R.id.logoSghir);
         mMediaPlayer = new MediaPlayer();
         mMediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
@@ -200,6 +200,7 @@ CreateNotification.createNotification(MainActivity.this, R.drawable.ic_baseline_
         super.onDestroy();
         if(prepared){
             mMediaPlayer.release();
+
         }
         if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.O){
             mNotificationManager.cancelAll();
